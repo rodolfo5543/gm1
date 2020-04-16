@@ -4,7 +4,7 @@ const usuarios = new Usuarios
 const { crearMensaje } = require('../utilidades/utilidades')
 
 io.on('connection', (client) => {
-    client.emit('crearMensaje', {
+    client.broadcast.emit('crearMensaje', {
         nombre: 'MAGIA',
         mensaje: 'TE HAS CONECTADO EXITOSAMENTE'
     })
@@ -27,7 +27,7 @@ io.on('connection', (client) => {
     client.on('crearMensaje', (data) => {
         let persona = usuarios.getPersona(client.id);
         let mensaje = crearMensaje(persona.nombre, data.mensaje);
-        client.emit('crearMensaje', {
+        client.broadcast.emit('crearMensaje', {
                 nombre: 'MAGIA',
                 mensaje
             })
